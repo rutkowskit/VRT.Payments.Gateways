@@ -1,0 +1,7 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+	  <Description>VRT.Payments.Gateways - payment gateway unified integration in C#</Description>
+	  <PackageTags>C# Payment Gateway Integration</PackageTags>
+  </PropertyGroup>
+</Project>

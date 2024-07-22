@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>		
+		<RootNamespace>VRT.Payments.Gateways</RootNamespace>
+		<AssemblyName>VRT.Payments.Gateways.Abstractions</AssemblyName>
+		<AssemblyVersion>1.01.001</AssemblyVersion>
+		<FileVersion>1.01.001</FileVersion>
+		<Version>1.01.003</Version>		
+		<Title>VRT.Payments.Gateways.Abstractions</Title>				
+		<Description>Common types and contracts used by various payment gateways</Description>		
+		<PackageId>VRT.Payments.Gateways.Abstractions</PackageId>		
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(TargetFramework)'=='net8.0'">
+		<AssemblyTitle>VRT.Payments.Gateways.Abstractions .NET 8.0</AssemblyTitle>
+	</PropertyGroup>
+	
+	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.1" />
+	</ItemGroup>
+</Project>
