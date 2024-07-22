@@ -1,7 +1,16 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-	  <Description>VRT.Payments.Gateways - payment gateway unified integration in C#</Description>
-	  <PackageTags>C# Payment Gateway Integration</PackageTags>
+  <PropertyGroup>	  	  
+	  <AssemblyVersion>1.1.1</AssemblyVersion>
+	  <FileVersion>1.1.1</FileVersion>
+	  <Version>1.1.1</Version>
+	  <Title>VRT.Payments.Gateways.PayU</Title>
+	  <Description>PayU Payment gateway basic integration</Description>
+	  <PackageId>VRT.Payments.Gateways.PayU</PackageId>
+	  <PackageTags>PayU;payment;gateway;integration</PackageTags>
   </PropertyGroup>
+  <ItemGroup>
+	  <PackageReference Include="VRT.Payments.Gateways.Abstractions" Version="1.1.1" />
+	  <PackageReference Include="Refit.HttpClientFactory" Version="7.1.2" />
+  </ItemGroup>
 </Project>
