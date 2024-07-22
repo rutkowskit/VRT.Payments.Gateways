@@ -12,7 +12,7 @@ namespace VRT.Payments.Gateways.PayU;
 internal sealed partial class PayUPaymentService : IPaymentService
 {
     private readonly IPayUOrdersClient _ordersService;
-    private IOptions<PayUOptions> _options;
+    private readonly IOptions<PayUOptions> _options;
     private readonly ILogger<PayUPaymentService> _logger;
 
     public PayUPaymentService(
@@ -52,14 +52,16 @@ internal sealed partial class PayUPaymentService : IPaymentService
         return result;
     }
 
-
     private static CreateOrderResponse ToServiceResponse(CreateOrderRequest request, ApiResponse<CreateOrder.Response> response)
     {
+        var isSuccess = response.IsSuccessStatusCode && response.Content?.status?.statusCode == "SUCCESS";
         return new CreateOrderResponse()
         {
-            IsSuccess = response.IsSuccessStatusCode && response.Content?.status?.statusCode == "SUCCESS",
+            IsSuccess = isSuccess,
             HttpStatusCode = (int)response.StatusCode,
-            ErrorMessage = response.Error?.Message ?? "Wystąpił problem",
+            ErrorMessage = isSuccess
+                ? null
+                : response.Error?.Message ?? response.Error?.Content ?? "Unknown error",
             ExtOrderId = response.Content?.extOrderId ?? request.ExtOrderId,
             RedirectUrl = response.Content?.redirectUri,
             OrderId = response.Content?.orderId
