@@ -1,0 +1,26 @@
+﻿<PageTitle>@Text</PageTitle>
+
+<MudStack Row AlignItems="AlignItems.Center" Style="height:50px" Spacing="1" Wrap="Wrap.NoWrap" Class="@Class">    
+    <MudIconButton hidden="@string.IsNullOrWhiteSpace(ReturnUrl)" Icon="@Icons.Material.Outlined.ArrowBackIos" OnClick="@Return"></MudIconButton>    
+    <MudText Typo="Typo.h5" Class="ms-2 d-flex text-nowrap white-space">@Text</MudText>
+</MudStack>
+
+@code {
+    [Inject]
+    public NavigationManager NavigationManager { get; set; } = default!;
+
+    [Parameter]
+    public string? Text { get; set; }
+        
+    [Parameter]
+    public string? ReturnUrl { get; set; }
+
+    [Parameter]
+    public string? Class { get; set; }
+
+    private void Return()
+    {
+        var returnUrl = ReturnUrl ?? "/";
+        NavigationManager.NavigateTo(returnUrl);
+    }
+}

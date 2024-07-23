@@ -1,4 +1,6 @@
-﻿namespace VRT.Payments.Gateways;
+﻿using System.Text.Json.Serialization;
+
+namespace VRT.Payments.Gateways;
 
 public sealed record PaymentStatus
 {
@@ -7,6 +9,8 @@ public sealed record PaymentStatus
     public static readonly PaymentStatus Pending = new("Pending", false);
     public static readonly PaymentStatus Completed = new("Completed", true);
     public static readonly PaymentStatus Canceled = new("Canceled", true);
+
+    [JsonConstructor]
     private PaymentStatus(string name, bool isFinal, bool isEmpty = false)
     {
         Name = name;

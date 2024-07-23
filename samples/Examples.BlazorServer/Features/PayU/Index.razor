@@ -1,0 +1,52 @@
+﻿@using VRT.Payments.Gateways
+@inherits BaseAppComponent
+
+<PageHeader Text="PayU Integration example" />
+<MudContainer MaxWidth="MaxWidth.ExtraExtraLarge">
+    @if (_lastError is not null)
+    {
+        <MudAlert Severity="Severity.Error">
+            @_lastError
+        </MudAlert>
+    }
+    <MudStack Row Class="ma-2">
+        <MudButton OnClick="@(()=>CreatePaymentLink())" StartIcon="@Icons.Material.Outlined.Add" IconSize="Size.Small" IconColor="Color.Success">
+            Create New
+        </MudButton>
+    </MudStack>
+
+    <MudDataGrid Items="@_payments" Height="calc(100vh - 20rem)">
+        <Columns>
+            <PropertyColumn Property="x=>x.Id" Title="Id"></PropertyColumn>
+            <PropertyColumn Property="x=>x.OrderId" Title="Provider OrderId"></PropertyColumn>
+            <PropertyColumn Property="x=>x.ProviderName" Title="Provider Name"></PropertyColumn>
+            <PropertyColumn Property="x=>x.Request.Description" Title="Description"></PropertyColumn>
+            <PropertyColumn Property="x=>x.Request.TotalPrice" Title="Total Price"></PropertyColumn>
+            <PropertyColumn Property="x=>x.Request.CurrencyCode" Title="Currency"></PropertyColumn>
+            <TemplateColumn Title="Status płatności">
+                <CellTemplate>
+                    <MudStack Row>
+                        <MudText> @context.Item.Status</MudText>
+                        @if (IsInFinalStatus(context.Item) is false)
+                        {
+                            <MudIconButton Size="Size.Small"
+                                           OnClick="@(()=> UpdateStatus(context.Item))"
+                                           Icon="@Icons.Material.Outlined.Update" />
+                        }
+                    </MudStack>
+                </CellTemplate>
+            </TemplateColumn>
+            <TemplateColumn Title="Link ">
+                <CellTemplate>
+                    <MudStack Row>
+                        <MudIconButton Href="@context.Item.PaymentUrl" Target="_blank" Icon="@Icons.Material.Outlined.Link" Size="Size.Small" />
+                        @if (IsInFinalStatus(context.Item) is false)
+                        {
+                            <MudIconButton OnClick="@(() => CancelOrder(context.Item))" Target="_blank" Icon="@Icons.Material.Outlined.Cancel" Size="Size.Small" />
+                        }
+                    </MudStack>
+                </CellTemplate>
+            </TemplateColumn>
+        </Columns>
+    </MudDataGrid>
+</MudContainer>

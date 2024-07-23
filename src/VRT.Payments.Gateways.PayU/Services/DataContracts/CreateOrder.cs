@@ -2,7 +2,6 @@
 
 using VRT.Payments.Gateways.Extensions;
 using VRT.Payments.Gateways.PayU.Options;
-using VRT.Payments.Gateways.PayU.Extensions;
 
 namespace VRT.Payments.Gateways.PayU.Services.DataContracts;
 internal static class CreateOrder

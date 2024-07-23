@@ -33,6 +33,7 @@ public static partial class DependencyInjection
             .WithNoRedirectHttpHandler();
 
         services.AddTransient<IPaymentService, PayUPaymentService>();
+        services.AddKeyedTransient<IPaymentService, PayUPaymentService>(Constants.GatewayName);
         return services;
     }
 
@@ -51,12 +52,13 @@ public static partial class DependencyInjection
         {
             IgnoreReadOnlyProperties = true,
             IgnoreReadOnlyFields = true,
-            DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
+            DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase
         };
 
         var refitSettings = new RefitSettings
         {
-            ContentSerializer = new SystemTextJsonContentSerializer(options)
+            ContentSerializer = new SystemTextJsonContentSerializer(options),
         };
         return refitSettings;
     }

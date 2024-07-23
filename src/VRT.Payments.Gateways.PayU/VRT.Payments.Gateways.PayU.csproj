@@ -1,16 +1,21 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>	  	  
-	  <AssemblyVersion>1.1.2</AssemblyVersion>
-	  <FileVersion>1.1.2</FileVersion>
-	  <Version>1.1.2</Version>
-	  <Title>VRT.Payments.Gateways.PayU</Title>
-	  <Description>PayU Payment gateway basic integration</Description>
-	  <PackageId>VRT.Payments.Gateways.PayU</PackageId>
-	  <PackageTags>PayU;payment;gateway;integration</PackageTags>
-  </PropertyGroup>
-  <ItemGroup>
-	  <PackageReference Include="VRT.Payments.Gateways.Abstractions" Version="1.1.1" />
-	  <PackageReference Include="Refit.HttpClientFactory" Version="7.1.2" />
-  </ItemGroup>
+	<PropertyGroup>
+		<AssemblyVersion>8.0.2</AssemblyVersion>
+		<FileVersion>8.0.2</FileVersion>
+		<Version>8.0.2</Version>
+		<Title>VRT.Payments.Gateways.PayU</Title>
+		<Description>PayU Payment gateway basic integration</Description>
+		<PackageId>VRT.Payments.Gateways.PayU</PackageId>
+		<PackageTags>PayU;payment;gateway;integration</PackageTags>
+	</PropertyGroup>
+	<ItemGroup>
+		<PackageReference Include="VRT.Payments.Gateways.Abstractions" Version="8.0.1" 
+						  Condition=" '$(Configuration)' == 'Release' "/>
+		<PackageReference Include="Refit.HttpClientFactory" Version="7.1.2" />
+	</ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\VRT.Payments.Gateways.Abstractions\VRT.Payments.Gateways.Abstractions.csproj"
+						  Condition=" '$(Configuration)' == 'Debug' "/>
+	</ItemGroup>
 </Project>

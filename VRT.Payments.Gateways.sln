@@ -16,12 +16,16 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VRT.Payments.Gateways.Abstr
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{93C47EB8-6F4D-4347-B455-53E5BB02BB02}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VRT.Payments.Gateways.PayU", "src\VRT.Payments.Gateways.PayU\VRT.Payments.Gateways.PayU.csproj", "{DBF4C9B5-7013-4C09-9D03-E57C88D14364}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VRT.Payments.Gateways.PayU", "src\VRT.Payments.Gateways.PayU\VRT.Payments.Gateways.PayU.csproj", "{DBF4C9B5-7013-4C09-9D03-E57C88D14364}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{829D5612-09C8-4DC7-ABDA-343AF5E11557}"
 	ProjectSection(SolutionItems) = preProject
 		tests\Directory.Build.props = tests\Directory.Build.props
 	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{21B0D8E1-9C47-4CB4-9276-333B3A8F094A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Examples.BlazorServer", "samples\Examples.BlazorServer\Examples.BlazorServer.csproj", "{A746A72B-2B52-419A-AB83-28EC9F196A04}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -37,6 +41,10 @@ Global
 		{DBF4C9B5-7013-4C09-9D03-E57C88D14364}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DBF4C9B5-7013-4C09-9D03-E57C88D14364}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DBF4C9B5-7013-4C09-9D03-E57C88D14364}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A746A72B-2B52-419A-AB83-28EC9F196A04}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A746A72B-2B52-419A-AB83-28EC9F196A04}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A746A72B-2B52-419A-AB83-28EC9F196A04}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A746A72B-2B52-419A-AB83-28EC9F196A04}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -44,6 +52,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{526FCCC2-183C-49CB-9CF7-E6C400F8964C} = {93C47EB8-6F4D-4347-B455-53E5BB02BB02}
 		{DBF4C9B5-7013-4C09-9D03-E57C88D14364} = {93C47EB8-6F4D-4347-B455-53E5BB02BB02}
+		{A746A72B-2B52-419A-AB83-28EC9F196A04} = {21B0D8E1-9C47-4CB4-9276-333B3A8F094A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6BD1CAE6-57B8-4293-958B-FBAE6C298E1D}

@@ -24,6 +24,8 @@ internal sealed partial class PayUPaymentService : IPaymentService
         _options = options;
         _logger = logger;
     }
+    public string GetProviderName() => Constants.GatewayName;
+
     public async Task<CreateOrderResponse> CreateOrder(CreateOrderRequest request)
     {
         var createOrderRequest = Contracts.CreateOrder.Request.From(request, _options.Value);
@@ -31,6 +33,22 @@ internal sealed partial class PayUPaymentService : IPaymentService
         TryLogError(response.Error);
         var result = ToServiceResponse(request, response);
         return result;
+    }
+    public async Task<CancelOrderResponse> CancelOrder(string orderId)
+    {
+        var serviceResponse = await _ordersService.CancelOrder(orderId);
+        var isSuccess = serviceResponse.IsSuccessStatusCode && serviceResponse.Content.status.statusCode == "SUCCESS";
+        TryLogError(serviceResponse.Error);
+        return new CancelOrderResponse()
+        {
+            HttpStatusCode = (int)serviceResponse.StatusCode,
+            IsSuccess = isSuccess,
+            OrderId = orderId,
+            ExtOrderId = serviceResponse.Content?.extOrderId,
+            ErrorMessage = isSuccess
+                ? null
+                : serviceResponse.Error?.Message ?? serviceResponse.Error?.Content
+        };
     }
     public async Task<GetPaymentStatusResponse> GetPaymentStatus(string orderId)
     {
@@ -81,4 +99,6 @@ internal sealed partial class PayUPaymentService : IPaymentService
             _logger.LogError(exception, "PayUPaymentService api exception: {Caller} {Message}", caller, exception.Message);
         }
     }
+
+
 }

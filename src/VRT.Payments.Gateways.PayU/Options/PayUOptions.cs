@@ -20,4 +20,5 @@ public sealed class PayUOptions : IPaymentGatewayOptions<PayUOptions>
 
     [NotNull]
     public string SecondKey { get; set; } = null!;
+    public string? NotificationEndpointUrl { get; set; }
 }

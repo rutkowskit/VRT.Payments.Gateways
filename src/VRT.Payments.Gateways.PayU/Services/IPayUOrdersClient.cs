@@ -11,8 +11,7 @@ internal interface IPayUOrdersClient
 
     [Get("/api/v2_1/orders/{orderId}")]
     internal Task<ApiResponse<GetOrder.Response>> GetOrder(string orderId);
+
+    [Delete("/api/v2_1/orders/{orderId}")]
+    internal Task<ApiResponse<CancelOrder.Response>> CancelOrder(string orderId);
 }
-
-
-
-
