@@ -1,0 +1,25 @@
+<Project>
+	<PropertyGroup>
+		<ParentDirectoryBuildPropsPath>$([MSBuild]::GetPathOfFileAbove('Directory.Build.props', '$(MSBuildThisFileDirectory)..\'))</ParentDirectoryBuildPropsPath>
+		<PackageIcon>vrt_128.png</PackageIcon>
+	</PropertyGroup>
+	
+	<ImportGroup>
+		<Import Project="$(ParentDirectoryBuildPropsPath)" 
+				Condition="$(ParentDirectoryBuildPropsPath) != ''"/>
+	</ImportGroup>
+	
+	<ItemGroup>		
+		<None Include="..\..\assets\logo\vrt_128.png" Pack="true" PackagePath="" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Update="Readme.md">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
+</Project>

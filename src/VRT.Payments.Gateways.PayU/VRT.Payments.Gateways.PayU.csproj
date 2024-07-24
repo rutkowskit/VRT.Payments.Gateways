@@ -1,5 +1,4 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
 	<PropertyGroup>
 		<AssemblyVersion>8.0.2</AssemblyVersion>
 		<FileVersion>8.0.2</FileVersion>

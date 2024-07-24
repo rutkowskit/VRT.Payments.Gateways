@@ -4,6 +4,9 @@ namespace VRT.Payments.Gateways.PayU.Options;
 
 public sealed class PayUOptions : IPaymentGatewayOptions<PayUOptions>
 {
+    /// <summary>
+    /// Default config file config section
+    /// </summary>
     public static string ConfigurationSectionName { get; } = "PaymentGateways:PayU";
 
     [NotNull]
