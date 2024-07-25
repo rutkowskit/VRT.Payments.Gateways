@@ -2,6 +2,7 @@
 using Examples.BlazorServer.FileStorage;
 using Microsoft.AspNetCore.Mvc;
 using System.Text;
+using VRT.Payments.Gateways.PayU;
 using IResult = Microsoft.AspNetCore.Http.IResult;
 
 namespace Examples.BlazorServer.Features.PayU.Notifications;
@@ -13,6 +14,9 @@ public static class NotificationsEndpoints
         webApp
             .MapPost("/api/notifications/payu", OnPostNotification)
             .Accepts<HttpRequest>("application/json")
+            .DisableAntiforgery()
+            .DisableRateLimiting()
+            .Produces<IResult>()
             .AllowAnonymous();
     }
 
@@ -20,14 +24,15 @@ public static class NotificationsEndpoints
         HttpRequest request,
         [FromServices] IFileStorage storage,
         [FromServices] PaymentsDatabase context,
-        [FromServices] IPaymentService paymentService)
+        [FromKeyedServices(key: Constants.GatewayName)] IPaymentService paymentService)
     {
         if (request?.HttpContext is null)
         {
             return Results.BadRequest();
         }
 
-        var paymentStatus = await paymentService.GetPaymentStatusFromNotification(request);
+        var paymentStatus = await paymentService
+            .GetPaymentStatusFromNotification(request);
         if (paymentStatus.IsSuccess == false)
         {
             return Results.Problem(paymentStatus.ErrorMessage, statusCode: paymentStatus.HttpStatusCode);

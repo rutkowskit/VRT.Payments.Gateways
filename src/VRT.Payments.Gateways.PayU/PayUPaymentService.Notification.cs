@@ -27,9 +27,10 @@ internal sealed partial class PayUPaymentService
 
         var validationResult = ValidateSignature(request, body);
 
-        return ValidateSignature(request, body).IsSuccess
-            ? notificationOrder.Success()
+        var result = ValidateSignature(request, body).IsSuccess
+            ? notificationOrder.ToSuccess()
             : notificationOrder.ToPaymentStatusResponse(validationResult);
+        return result;
     }
 
     private Notification? ParseNotification(string notification)

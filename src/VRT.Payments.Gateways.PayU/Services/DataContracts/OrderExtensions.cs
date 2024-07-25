@@ -1,11 +1,12 @@
 ﻿namespace VRT.Payments.Gateways.PayU.Services.DataContracts;
 internal static class OrderExtensions
 {
-    public static GetPaymentStatusResponse Success(this Shared.Order order)
+    public static GetPaymentStatusResponse ToSuccess(this Shared.Order order)
     {
         var result = new GetPaymentStatusResponse()
         {
             OrderId = order.orderId,
+            ExtOrderId = order.extOrderId,
             IsSuccess = true,
             Status = order.GetPaymentStatus(),
             HttpStatusCode = (int)System.Net.HttpStatusCode.OK
@@ -18,6 +19,7 @@ internal static class OrderExtensions
         var result = new GetPaymentStatusResponse()
         {
             OrderId = order.orderId,
+            ExtOrderId = order.extOrderId,
             IsSuccess = response.IsSuccess,
             Status = response.IsSuccess ? order.GetPaymentStatus() : PaymentStatus.None,
             HttpStatusCode = response.HttpStatusCode,

@@ -28,10 +28,12 @@ It is configured to default, public `PayU` Sandobx.
       "ClientSecret": "2ee86a66e5d97e3fadc400c9f19b065d",
       "SecondKey": "b6ca15b0d1020e8094d9b5f8d163db54",
       "PointOfSellId": "300746",
-      "NotificationEndpoint": ""
+      "NotificationEndpointUrl": ""
     }
   }
 }
 ```
+
+> :bulb: `NotificationEndpointUrl` should be absolute url to your notification handling endpoint
 
 If you do not want to use appsettings configuration, then you can also provide `IOptions<PayUOptions>` yourself during DI configuration.

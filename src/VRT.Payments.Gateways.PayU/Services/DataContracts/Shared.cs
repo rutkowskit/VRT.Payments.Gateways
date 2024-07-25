@@ -26,6 +26,7 @@ internal static class Shared
     public class Order
     {
         public string orderId { get; set; }
+        public string extOrderId { get; set; }
         public string orderCreateDate { get; set; }
         public string notifyUrl { get; set; }
         public string customerIp { get; set; }
