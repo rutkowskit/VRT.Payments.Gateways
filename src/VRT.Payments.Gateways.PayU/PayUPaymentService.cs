@@ -30,7 +30,7 @@ internal sealed partial class PayUPaymentService : IPaymentService
     {
         var createOrderRequest = Contracts.CreateOrder.Request.From(request, _options.Value);
         var response = await _ordersService.CreateOrder(createOrderRequest);
-        TryLogError(response.Error);
+        TryLogError(response.Error, createOrderRequest);
         var result = ToServiceResponse(request, response);
         return result;
     }
@@ -38,7 +38,7 @@ internal sealed partial class PayUPaymentService : IPaymentService
     {
         var serviceResponse = await _ordersService.CancelOrder(orderId);
         var isSuccess = serviceResponse.IsSuccessStatusCode && serviceResponse.Content.status.statusCode == "SUCCESS";
-        TryLogError(serviceResponse.Error);
+        TryLogError(serviceResponse.Error, new { orderId });
         return new CancelOrderResponse()
         {
             HttpStatusCode = (int)serviceResponse.StatusCode,
@@ -58,7 +58,7 @@ internal sealed partial class PayUPaymentService : IPaymentService
             ? order.GetPaymentStatus()
             : PaymentStatus.None;
 
-        TryLogError(orderResponse.Error);
+        TryLogError(orderResponse.Error, new { orderId });
         var result = new GetPaymentStatusResponse()
         {
             OrderId = orderId,
@@ -85,20 +85,34 @@ internal sealed partial class PayUPaymentService : IPaymentService
             OrderId = response.Content?.orderId
         };
     }
-    private void TryLogError(ApiException? exception, [CallerMemberName] string? caller = null)
+    private void TryLogError(ApiException? exception, object request, [CallerMemberName] string? caller = null)
     {
         if (exception != null)
         {
-            _logger.LogError(exception, "PayUPaymentService api exception: {Caller} {Message}, {Content}", caller, exception.Message, exception.Content);
+            var requestJson = SerializeSafe(request);
+            _logger.LogError(exception, "PayUPaymentService api exception: {Caller} {Message}, {Content}, {Request}", caller, exception.Message, exception.Content, requestJson);
         }
     }
     private void LogException(Exception? exception, [CallerMemberName] string? caller = null)
     {
         if (exception != null)
         {
-            _logger.LogError(exception, "PayUPaymentService api exception: {Caller} {Message}", caller, exception.Message);
+            _logger.LogError(exception, "PayUPaymentService api unhandled exception: {Caller} {Message}", caller, exception.Message);
         }
     }
-
-
+    private static string? SerializeSafe(object? obj)
+    {
+        if (obj is null)
+        {
+            return null;
+        }
+        try
+        {
+            return System.Text.Json.JsonSerializer.Serialize(obj);
+        }
+        catch
+        {
+            return null;
+        }
+    }
 }

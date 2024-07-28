@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Refit;
 using System.Text.Json;
@@ -58,15 +59,16 @@ public static partial class DependencyInjection
 
         var refitSettings = new RefitSettings
         {
-            ContentSerializer = new SystemTextJsonContentSerializer(options),
+            ContentSerializer = new SystemTextJsonContentSerializer(options)
         };
         return refitSettings;
     }
     private static IHttpClientBuilder WithNoRedirectHttpHandler(this IHttpClientBuilder builder)
     {
-        return builder.ConfigurePrimaryHttpMessageHandler(() =>
+        return builder.ConfigurePrimaryHttpMessageHandler((provider) =>
         {
-            return new RedirectMessageHttpClientHandler();
+            var logger = provider.GetRequiredService<ILogger<RedirectMessageHttpClientHandler>>();
+            return new RedirectMessageHttpClientHandler(logger);
         });
     }
 }

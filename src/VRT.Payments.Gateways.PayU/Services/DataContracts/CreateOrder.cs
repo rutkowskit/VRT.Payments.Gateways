@@ -24,9 +24,8 @@ internal static class CreateOrder
                 currencyCode = request.CurrencyCode,
                 totalAmount = request.TotalPrice.ToCents().ToString(),
                 extOrderId = request.ExtOrderId,
-                notifyUrl = request.NotifyUrl,
-                continueUrl = request.ContinueUrl,
-                
+                notifyUrl = request.NotifyUrl ?? options.NotificationEndpointUrl,
+                continueUrl = request.ContinueUrl                
             };
             if (request.Buyer is not null)
             {
@@ -45,7 +44,7 @@ internal static class CreateOrder
                 {
                     name = x.Name,
                     unitPrice = x.UnitPrice.ToCents().ToString(),
-                    quantity = x.Quantity.ToString(),
+                    quantity = ((int)x.Quantity).ToString(),
                     _virtual = x.IsNonPhysical
                 }).ToArray();
                 result.shoppingCarts = [

@@ -1,24 +1,30 @@
-﻿using System.Net.Security;
+﻿using Microsoft.Extensions.Logging;
+using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
 
 namespace VRT.Payments.Gateways.Common;
 public sealed class RedirectMessageHttpClientHandler : HttpClientHandler
 {
-    public RedirectMessageHttpClientHandler()
+    private readonly ILogger<RedirectMessageHttpClientHandler> _logger;
+
+    public RedirectMessageHttpClientHandler(ILogger<RedirectMessageHttpClientHandler> logger)
     {
         AllowAutoRedirect = false;
+        _logger = logger;
         //ServerCertificateCustomValidationCallback = ServerCertificateCustomValidation;
     }
     protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
     {
         HttpResponseMessage response = await base.SendAsync(request, cancellationToken);
-
+#if DEBUG
         var content = await response.Content.ReadAsStringAsync();
+        var requestContent = "";
         if (request.Content is not null)
         {
-            var requestContent = await request.Content.ReadAsStringAsync();
+            requestContent = await request.Content.ReadAsStringAsync();
         }
-
+        _logger.LogDebug("{Url}, {RequestContent},  {ResponseContent}", request.RequestUri, requestContent, content);
+#endif
         if (response.StatusCode == System.Net.HttpStatusCode.Redirect)
         {
             response.StatusCode = System.Net.HttpStatusCode.OK;
