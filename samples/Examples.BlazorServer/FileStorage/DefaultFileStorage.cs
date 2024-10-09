@@ -1,6 +1,4 @@
-﻿using CSharpFunctionalExtensions;
-
-namespace Examples.BlazorServer.FileStorage;
+﻿namespace Examples.BlazorServer.FileStorage;
 
 public sealed class DefaultFileStorage : IFileStorage
 {

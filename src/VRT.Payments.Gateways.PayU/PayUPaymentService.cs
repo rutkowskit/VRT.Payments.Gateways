@@ -54,7 +54,7 @@ internal sealed partial class PayUPaymentService : IPaymentService
     {
         var orderResponse = await _ordersService.GetOrder(orderId);
         var order = orderResponse.Content?.orders?.FirstOrDefault();
-        var status = orderResponse.IsSuccessStatusCode && order is not null
+        PaymentStatus status = orderResponse.IsSuccessStatusCode && order is not null
             ? order.GetPaymentStatus()
             : PaymentStatus.None;
 

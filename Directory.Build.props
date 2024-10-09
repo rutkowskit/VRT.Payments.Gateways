@@ -10,8 +10,7 @@
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<RepositoryUrl>https://github.com/rutkowskit/VRT.Payments.Gateways</RepositoryUrl>
 		<NeutralLanguage>en-US</NeutralLanguage>
-		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>		
 		<PublishRepositoryUrl>true</PublishRepositoryUrl>
 		<EmbedUntrackedSources>true</EmbedUntrackedSources>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>

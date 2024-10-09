@@ -2,7 +2,7 @@
 	<PropertyGroup>
 		<ParentDirectoryBuildPropsPath>$([MSBuild]::GetPathOfFileAbove('Directory.Build.props', '$(MSBuildThisFileDirectory)..\'))</ParentDirectoryBuildPropsPath>
 		<PackageIcon>vrt_128.png</PackageIcon>
-		<PackageReadmeFile>Readme.md</PackageReadmeFile>
+		<PackageReadmeFile>Readme.md</PackageReadmeFile>		
 	</PropertyGroup>
 	
 	<ImportGroup>
@@ -15,6 +15,18 @@
 		<None Include="Readme.md" Pack="true" PackagePath="" />
 	</ItemGroup>
 	<ItemGroup>
-		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
-	</ItemGroup>	
+		<PackageReference Include="Microsoft.SourceLink.GitHub" PrivateAssets="All" />
+	</ItemGroup>
+	<PropertyGroup Label="Versioning">
+		<MinVerTagPrefix>v</MinVerTagPrefix>
+		<MinVerDefaultPreReleaseIdentifiers>beta</MinVerDefaultPreReleaseIdentifiers>
+		<MinVerMinimumMajorMinor>8.0</MinVerMinimumMajorMinor>
+	</PropertyGroup>
+
+	<ItemGroup Label="Versioning">
+		<PackageReference Include="MinVer">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+	</ItemGroup>
 </Project>

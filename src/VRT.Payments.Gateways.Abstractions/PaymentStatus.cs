@@ -1,26 +1,22 @@
-﻿using System.Text.Json.Serialization;
+﻿using VRT.Generators.EnumToClass;
 
 namespace VRT.Payments.Gateways;
 
-public sealed record PaymentStatus
+[EnumToClass<Statuses>]
+public sealed partial record PaymentStatus
 {
-    public static readonly PaymentStatus None = new("None", false, true);
-    public static readonly PaymentStatus New = new("New", false);
-    public static readonly PaymentStatus Pending = new("Pending", false);
-    public static readonly PaymentStatus Completed = new("Completed", true);
-    public static readonly PaymentStatus Canceled = new("Canceled", true);
-
-    [JsonConstructor]
-    private PaymentStatus(string name, bool isFinal, bool isEmpty = false)
+    public enum Statuses
     {
-        Name = name;
-        IsFinal = isFinal;
-        IsEmpty = isEmpty;
+        None = 0,
+        New = 1,
+        Pending = 2,
+        Completed = 3,
+        Canceled = 99,
     }
 
-    public string Name { get; }
-    public bool IsFinal { get; }
-    public bool IsEmpty { get; }
-
-    public static implicit operator string(PaymentStatus paymentStatus) => paymentStatus.Name;
+    public bool IsFinal => Value switch
+    {
+        Statuses.None or Statuses.Completed or Statuses.Canceled => true,
+        _ => false,
+    };
 }

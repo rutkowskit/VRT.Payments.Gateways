@@ -60,7 +60,6 @@ public class Payment
     public long AddedTimestamp { get; private set; }
 
     [JsonInclude]
-
     public long LastUpdateTimestamp { get; private set; }
 
     public bool UpdateNotification(GetPaymentStatusResponse? newNotification)
@@ -80,7 +79,7 @@ public class Payment
 
     public bool UpdateStatus(PaymentStatus newStatus)
     {
-        if (Status == newStatus)
+        if (newStatus.Name.Equals(Status, StringComparison.InvariantCultureIgnoreCase))
         {
             return false;
         }

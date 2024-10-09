@@ -1,4 +1,5 @@
-﻿using Examples.BlazorServer.Database.Entities;
+﻿using Examples.BlazorServer.Database.Converters;
+using Examples.BlazorServer.Database.Entities;
 using System.Reactive.Disposables;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
@@ -8,6 +9,16 @@ namespace Examples.BlazorServer.Database;
 
 public sealed class PaymentsDatabase : IDisposable
 {
+    private static readonly JsonSerializerOptions SerializationOptions = new()
+    {
+        WriteIndented = false,
+        Converters =
+        {
+            new PaymentStatusJsonConverter()
+        }
+    };
+
+
     private readonly ReplaySubject<List<Payment>> _paymentSubject = new(1);
     private readonly CompositeDisposable _disposables;
     private sealed class DbData
@@ -41,7 +52,7 @@ public sealed class PaymentsDatabase : IDisposable
         }
         try
         {
-            var dbJson = JsonSerializer.Serialize(this);
+            var dbJson = JsonSerializer.Serialize(this, SerializationOptions);
             await File.WriteAllTextAsync(Path.Combine("Db", "database.json"), dbJson);
             NotifyDbDataChanged();
         }
@@ -65,7 +76,7 @@ public sealed class PaymentsDatabase : IDisposable
             }
 
             var json = File.ReadAllText(DbPath);
-            var db = JsonSerializer.Deserialize<DbData>(json);
+            var db = JsonSerializer.Deserialize<DbData>(json, SerializationOptions);
             return db ?? new();
         }
         finally

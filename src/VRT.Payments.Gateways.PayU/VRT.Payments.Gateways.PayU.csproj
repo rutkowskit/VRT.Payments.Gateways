@@ -1,20 +1,18 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-	<PropertyGroup>
-		<AssemblyVersion>8.0.4.5</AssemblyVersion>
-		<FileVersion>8.0.4.5</FileVersion>
-		<Version>8.0.4.5</Version>
+	<PropertyGroup>		
 		<Title>VRT.Payments.Gateways.PayU</Title>
 		<Description>PayU Payment gateway basic integration</Description>
 		<PackageId>VRT.Payments.Gateways.PayU</PackageId>
 		<PackageTags>PayU;payment;gateway;integration</PackageTags>
 		<PackageReleaseNotes>
-			Added ExtOrderId to order status
+			Minor non-functional changes
 		</PackageReleaseNotes>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 	</PropertyGroup>
 	<ItemGroup>
-		<PackageReference Include="VRT.Payments.Gateways.Abstractions" Version="8.0.3" 
+		<PackageReference Include="VRT.Payments.Gateways.Abstractions" 
 						  Condition=" '$(Configuration)' == 'Release' "/>
-		<PackageReference Include="Refit.HttpClientFactory" Version="7.1.2" />
+		<PackageReference Include="Refit.HttpClientFactory" />
 	</ItemGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\VRT.Payments.Gateways.Abstractions\VRT.Payments.Gateways.Abstractions.csproj"
