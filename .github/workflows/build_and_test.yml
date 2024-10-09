@@ -27,21 +27,9 @@ jobs:
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: '8.0.x' # Specify the .NET version you're using
-
-    - name: Restore dependencies for abstractions
-      run: dotnet restore ./src/VRT.Payments.Gateways.Abstractions/VRT.Payments.Gateways.Abstractions.csproj
-
-    - name: Build abstractions
-      run: dotnet build -c Release ./src/VRT.Payments.Gateways.Abstractions/VRT.Payments.Gateways.Abstractions.csproj --no-restore
-
-    - name: Pack abstractions as NuGet package
-      run: dotnet pack -c Release ./src/VRT.Payments.Gateways.Abstractions/VRT.Payments.Gateways.Abstractions.csproj --output ./nupkg --no-build --no-restore
-    
-    - name: Add local nupkg source
-      run: dotnet nuget add source ./nupkg --name LocalPackages
     
     - name: Install dependencies
-      run: dotnet restore
+      run: dotnet restore --prerelease
 
     - name: Build
       run: dotnet build -c Release --no-restore
