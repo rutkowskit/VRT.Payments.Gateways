@@ -4,7 +4,12 @@
 		<PackageIcon>vrt_128.png</PackageIcon>
 		<PackageReadmeFile>Readme.md</PackageReadmeFile>		
 	</PropertyGroup>
-	
+
+	<PropertyGroup Label="NuGet">
+		<NoWarn>$(NoWarn);NU5128;CA1724</NoWarn>		
+		<NoPackageAnalysis>true</NoPackageAnalysis>
+	</PropertyGroup>
+
 	<ImportGroup>
 		<Import Project="$(ParentDirectoryBuildPropsPath)" 
 				Condition="$(ParentDirectoryBuildPropsPath) != ''"/>
