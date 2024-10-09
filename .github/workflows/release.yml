@@ -26,13 +26,13 @@ jobs:
       run: dotnet restore
 
     - name: Build
-      run: dotnet build -c Release
+      run: dotnet build -c Release --no-restore
 
     - name: Run tests
       run: dotnet test -c Release --no-build --verbosity normal
 
     - name: Pack
-      run: dotnet pack -c Release --no-build
+      run: dotnet pack -c Release --no-build --no-restore
 
     - name: Publish to NuGet
       env:
