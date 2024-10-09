@@ -23,8 +23,8 @@
     <PackageVersion Include="MinVer" Version="6.0.0" />
   </ItemGroup>
   <ItemGroup Label="Gateways">
-    <PackageVersion Include="VRT.Payments.Gateways.PayU" Version="8.0.3" />
-    <PackageVersion Include="VRT.Payments.Gateways.Abstractions" Version="8.0.3" />
+	<PackageVersion Include="VRT.Payments.Gateways.Abstractions" Version="8.0.3" />
+    <PackageVersion Include="VRT.Payments.Gateways.PayU" Version="8.0.3" />    
   </ItemGroup>
   <ItemGroup Label="Infrastructure">
     <PackageVersion Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="8.0.0" />

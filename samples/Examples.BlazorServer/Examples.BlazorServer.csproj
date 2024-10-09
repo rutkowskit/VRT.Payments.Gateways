@@ -1,6 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 	<PropertyGroup>		
 		<UserSecretsId>843053b2-c02c-4732-85ce-93c0fa1b565e</UserSecretsId>
+		<IsPublishable>false</IsPublishable>
 	</PropertyGroup>
 	<ItemGroup>
 		<PackageReference Include="CSharpFunctionalExtensions" />
@@ -8,7 +9,7 @@
 		<PackageReference Include="MudBlazor" />
 		<PackageReference Include="System.Reactive" />
 		<PackageReference Include="Ulid" />
-		<PackageReference Include="VRT.Payments.Gateways.PayU" Condition=" '$(Configuration)' == 'Release' " />
+		<PackageReference Include="VRT.Payments.Gateways.PayU" Condition=" '$(Configuration)' == 'Release' "/>
 	</ItemGroup>	
 	<ItemGroup>
 	  <ProjectReference Include="..\..\src\VRT.Payments.Gateways.PayU\VRT.Payments.Gateways.PayU.csproj" Condition=" '$(Configuration)' == 'Debug' " />
