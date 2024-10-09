@@ -36,24 +36,10 @@ jobs:
 
     - name: Pack abstractions as NuGet package
       run: dotnet pack -c Release ./src/VRT.Payments.Gateways.Abstractions/VRT.Payments.Gateways.Abstractions.csproj --output ./nupkg --no-build --no-restore
-  
-  build:
-    needs: build-abstractions
-    runs-on: ubuntu-latest
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-      with:
-        fetch-depth: 0
-        filter: tree:0
-
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: '8.0.x' # Specify the .NET version you're using
+    
     - name: Add local nupkg source
       run: dotnet nuget add source ./nupkg --name LocalPackages
-
+    
     - name: Install dependencies
       run: dotnet restore
 
@@ -62,4 +48,4 @@ jobs:
 
     - name: Run tests
       run: dotnet test -c Release --no-build --verbosity normal
-      
+ 
